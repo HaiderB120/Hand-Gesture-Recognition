@@ -12,7 +12,7 @@ ASL (sign language) into the program.
 **RUNNING THE PROGRAM**
 
 **Clone The Repo**
-git clone https://github.com/yourusername/hand-gesture-recognition.git
+https://github.com/HaiderB120/Hand-Gesture-Recognition.git
 cd hand-gesture-recognition
 
 **Install Dependencies**
@@ -30,5 +30,6 @@ python gesture_train.py
 2. Enter Action Name
 3. Press 'Space' to capture samples
 4. Press 'Enter' to save
+
 
 
