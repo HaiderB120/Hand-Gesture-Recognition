@@ -28,6 +28,7 @@ python gesture_run.py
 1. Do a peace sign in front of the camera to take a screenshot of the laptop screen
 2. Do a thumbs up to copy selected text.
      *If already inside google, the program will automatically copy selected text, open a new tab, paste the text, and search.
+3. Make a pinch with a finger and move the pinch slowly to create a click and drag effect. *Good for 360 degree viewing mode
 
 **Train A New Gesture**
 
@@ -36,6 +37,7 @@ python gesture_train.py
 2. Enter Action Name
 3. Press 'Space' to capture samples
 4. Press 'Enter' to save
+
 
 
 
