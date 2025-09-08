@@ -5,6 +5,7 @@ be trained to learn any gesture the user wants, and do a task whenever that gest
 the pyautogui library to perform computer tasks such as taking screenshots and copying and pasting text. 
 
 **PURPOSE**
+
 The purpose of this program is to make computer tasks faster for everyday people.
 Another future goal of this program is to make doing computer tasks more accessible for people with disabilities, including incorporating
 ASL (sign language) into the program.
@@ -35,6 +36,7 @@ python gesture_train.py
 2. Enter Action Name
 3. Press 'Space' to capture samples
 4. Press 'Enter' to save
+
 
 
 
