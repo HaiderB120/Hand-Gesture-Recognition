@@ -3,3 +3,4 @@ mediapipe
 numpy
 pyautogui
 pytest
+tensorflow
