@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="list-card">
+  <h2>Gesture Library</h2>
+
+  {% if not gestures %}
+    <p>No gestures defined yet.</p>
+  {% else %}
+    <table>
+      <thead>
+        <tr>
+          <th>Gesture</th>
+          <th>Action</th>
+          <th>Samples</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for g in gestures %}
+          <tr>
+            <td>{{ g.name }}</td>
+            <td>{{ g.action }}</td>
+            <td>{{ g.count }}</td>
+            <td>
+              <form method="post" action="{{ url_for('delete_gesture', gesture_name=g.name) }}">
+                <button class="btn danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</section>
+{% endblock %}
