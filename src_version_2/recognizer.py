@@ -5,6 +5,9 @@ import time
 import cv2
 import mediapipe as mp
 import numpy as np
+import json
+import os
+
 
 from .features import (
     to_feature_vec,
@@ -13,6 +16,14 @@ from .features import (
 )
 from .gesture_db import load_db, build_templates
 from .actions import do_action
+
+def load_config():
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config.json")
+    if not os.path.exists(path):
+        return {"pinch_drag_enabled": True}
+    with open(path, "r") as f:
+        return json.load(f)
+
 
 # ----- Pinch + drag configuration -----
 PINCH_ON = 0.18
@@ -86,9 +97,16 @@ class GestureRuntime:
         self.ema_x = None
         self.ema_y = None
 
+        cfg = load_config()
+        self.pinch_enabled = bool(cfg.get("pinch_drag_enabled", True))
+
+
         print("[Runtime] Loaded gestures:", self.names)
 
     def _handle_pinch_drag(self, pts, frame):
+        if not self.pinch_enabled:
+            return
+
         """Update pinch drag state and control the mouse if available."""
         ratio = pinch_ratio_from_pts(pts)
 
@@ -234,3 +252,4 @@ class GestureRuntime:
 
         cap.release()
         cv2.destroyAllWindows()
+
