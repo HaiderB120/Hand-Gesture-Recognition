@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card-grid">
+  <div class="card">
+    <h2>Create or Update a Gesture</h2>
+    <p>Train a new gesture and map it to an action.</p>
+    <a class="btn" href="{{ url_for('map_gesture') }}">Map Gesture</a>
+  </div>
+
+  <div class="card">
+    <h2>View All Gestures</h2>
+    <p>{{ gestures_count }} gesture(s) configured.</p>
+    <a class="btn" href="{{ url_for('gestures') }}">Open Library</a>
+  </div>
+
+  <div class="card">
+    <h2>Pinch &amp; Drag</h2>
+    <p>Current status: <strong>{{ 'ON' if pinch_enabled else 'OFF' }}</strong></p>
+    <form method="post" action="{{ url_for('toggle_pinch') }}">
+      <button class="btn secondary" type="submit">
+        Turn {{ 'OFF' if pinch_enabled else 'ON' }}
+      </button>
+    </form>
+  </div>
+</section>
+{% endblock %}
