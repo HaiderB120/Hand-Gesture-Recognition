@@ -1,4 +1,4 @@
-# src/core/actions.py
+# src_version_2/actions.py
 
 import time
 
@@ -10,12 +10,13 @@ try:
 except Exception:
     HAVE_PYAUTOGUI = False
 
+ACTIONS = [
+    "screenshot",
+    "copy",
+]
+
 
 def do_action(action_name: str) -> None:
-    """
-    Execute the action associated with a recognized gesture.
-    Extend this with new actions as the application grows.
-    """
     if action_name == "screenshot":
         ts = time.strftime("%Y%m%d_%H%M%S")
         filename = f"gesture_screenshot_{ts}.png"
@@ -30,7 +31,6 @@ def do_action(action_name: str) -> None:
         if not HAVE_PYAUTOGUI:
             print("[ACTION] copy (pyautogui not available)")
             return
-        # Example behavior: open new tab and perform some action.
         pyautogui.hotkey("ctrl", "c")
         print("[ACTION] Copied selection to clipboard")
         return
