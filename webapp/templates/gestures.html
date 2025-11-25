@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="list-card">
+  <div style="margin-bottom: 0.75rem;">
+    <a class="btn" href="{{ url_for('index') }}">← Back to Dashboard</a>
+  </div>
+
   <h2>Gesture Library</h2>
 
   {% if not gestures %}
