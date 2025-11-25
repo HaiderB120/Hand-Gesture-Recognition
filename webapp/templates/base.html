@@ -2,18 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>{{ app_name }} - {{ title if title else '' }}</title>
+  <title>{{ app_name }}{% if title %} - {{ title }}{% endif %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header>
-    <h1>{{ app_name }}</h1>
-    <p class="tagline"><em>Control your computer with just your hand.</em></p>
-    <nav>
-      <a href="{{ url_for('index') }}">Dashboard</a>
-      <a href="{{ url_for('map_gesture') }}">Map Gesture</a>
-      <a href="{{ url_for('gestures') }}">Gestures</a>
-    </nav>
+    <div class="header-inner">
+      <h1>{{ app_name }}</h1>
+      <p class="tagline"><em>Control your computer with just your hand.</em></p>
+    </div>
   </header>
 
   <main>
