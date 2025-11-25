@@ -103,7 +103,7 @@ class GestureRuntime:
 
         print("[Runtime] Loaded gestures:", self.names)
 
-        def _handle_pinch_drag(self, pts, frame):
+    def _handle_pinch_drag(self, pts, frame):
         if not self.pinch_enabled:
             return
 
@@ -131,19 +131,21 @@ class GestureRuntime:
             self.ema_x = int((1 - SMOOTH_ALPHA) * self.ema_x + SMOOTH_ALPHA * sx)
             self.ema_y = int((1 - SMOOTH_ALPHA) * self.ema_y + SMOOTH_ALPHA * sy)
 
-        if abs(self.ema_x - sx) > DEADZONE_PX or abs(self.ema_y - sy) > DEADZONE_PX:
-            if HAVE_PYAUTOGUI:
-                pyautogui.moveTo(self.ema_x, self.ema_y, duration=0)
-            else:
-                print(f"[SIM] moveTo({self.ema_x},{self.ema_y})")
-
         if not self.pinch_active and self.on_streak >= CONFIRM_ON_FRAMES:
             if HAVE_PYAUTOGUI:
+                pyautogui.moveTo(self.ema_x, self.ema_y, duration=0)
                 pyautogui.mouseDown()
             else:
                 print("[SIM] mouseDown()")
             self.pinch_active = True
             self.lost_frames = 0
+
+        if self.pinch_active:
+            if abs(self.ema_x - sx) > DEADZONE_PX or abs(self.ema_y - sy) > DEADZONE_PX:
+                if HAVE_PYAUTOGUI:
+                    pyautogui.moveTo(self.ema_x, self.ema_y, duration=0)
+                else:
+                    print(f"[SIM] moveTo({self.ema_x},{self.ema_y})")
 
         if self.pinch_active and self.off_streak >= CONFIRM_OFF_FRAMES:
             if HAVE_PYAUTOGUI:
@@ -242,5 +244,6 @@ class GestureRuntime:
 
         cap.release()
         cv2.destroyAllWindows()
+
 
 
