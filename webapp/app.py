@@ -135,16 +135,14 @@ def record_gesture_samples(gesture_name, action_name):
 
 @app.route("/")
 def index():
-    cfg = load_config()
     db = load_gestures_safe()
     gestures_count = len(db)
-    pinch_enabled = bool(cfg.get("pinch_drag_enabled", True))
     return render_template(
         "index.html",
         app_name="AeroDesk",
         gestures_count=gestures_count,
-        pinch_enabled=pinch_enabled,
     )
+
 
 
 @app.route("/map-gesture", methods=["GET", "POST"])
@@ -200,14 +198,6 @@ def delete_gesture(gesture_name):
     return redirect(url_for("gestures"))
 
 
-@app.route("/toggle-pinch", methods=["POST"])
-def toggle_pinch():
-    cfg = load_config()
-    current = bool(cfg.get("pinch_drag_enabled", True))
-    cfg["pinch_drag_enabled"] = not current
-    save_config(cfg)
-    return redirect(url_for("index"))
-
-
 if __name__ == "__main__":
     app.run(debug=True)
+
