@@ -103,14 +103,12 @@ class GestureRuntime:
 
         print("[Runtime] Loaded gestures:", self.names)
 
-    def _handle_pinch_drag(self, pts, frame):
+        def _handle_pinch_drag(self, pts, frame):
         if not self.pinch_enabled:
             return
 
-        """Update pinch drag state and control the mouse if available."""
         ratio = pinch_ratio_from_pts(pts)
 
-        # Decide ON/OFF streaks using hysteresis
         if ratio <= PINCH_ON:
             self.on_streak += 1
             self.off_streak = 0
@@ -121,40 +119,32 @@ class GestureRuntime:
             self.on_streak = 0
             self.off_streak = 0
 
-        # Map index fingertip (id=8) to screen coords
         idx = pts[8]
         nx = np.clip(idx[0] / frame.shape[1], 0.0, 1.0)
         ny = np.clip(idx[1] / frame.shape[0], 0.0, 1.0)
         sx = int(nx * SCREEN_W)
         sy = int(ny * SCREEN_H)
 
-        # EMA smoothing
         if self.ema_x is None:
             self.ema_x, self.ema_y = sx, sy
         else:
             self.ema_x = int((1 - SMOOTH_ALPHA) * self.ema_x + SMOOTH_ALPHA * sx)
             self.ema_y = int((1 - SMOOTH_ALPHA) * self.ema_y + SMOOTH_ALPHA * sy)
 
-        # Activation: OFF -> ON
-        if not self.pinch_active and self.on_streak >= CONFIRM_ON_FRAMES:
+        if abs(self.ema_x - sx) > DEADZONE_PX or abs(self.ema_y - sy) > DEADZONE_PX:
             if HAVE_PYAUTOGUI:
                 pyautogui.moveTo(self.ema_x, self.ema_y, duration=0)
+            else:
+                print(f"[SIM] moveTo({self.ema_x},{self.ema_y})")
+
+        if not self.pinch_active and self.on_streak >= CONFIRM_ON_FRAMES:
+            if HAVE_PYAUTOGUI:
                 pyautogui.mouseDown()
             else:
                 print("[SIM] mouseDown()")
             self.pinch_active = True
             self.lost_frames = 0
 
-        # While active: move cursor each frame
-        if self.pinch_active:
-            if (abs(self.ema_x - sx) > DEADZONE_PX or
-                    abs(self.ema_y - sy) > DEADZONE_PX):
-                if HAVE_PYAUTOGUI:
-                    pyautogui.moveTo(self.ema_x, self.ema_y, duration=0)
-                else:
-                    print(f"[SIM] moveTo({self.ema_x},{self.ema_y})")
-
-        # Deactivation: ON -> OFF
         if self.pinch_active and self.off_streak >= CONFIRM_OFF_FRAMES:
             if HAVE_PYAUTOGUI:
                 pyautogui.mouseUp()
@@ -163,12 +153,12 @@ class GestureRuntime:
             self.pinch_active = False
             self.on_streak = self.off_streak = 0
 
-        # Debug overlays
         cv2.putText(frame, f"Pinch ratio: {ratio:.2f}", (10, 60),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
         cv2.putText(frame, f"Drag: {'ON' if self.pinch_active else 'OFF'}", (10, 90),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7,
                     (0, 255, 0) if self.pinch_active else (0, 0, 255), 2)
+
 
     def run(self):
         """Main webcam loop."""
@@ -252,4 +242,5 @@ class GestureRuntime:
 
         cap.release()
         cv2.destroyAllWindows()
+
 
