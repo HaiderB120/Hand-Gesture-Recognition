@@ -90,12 +90,13 @@ This gesture detects the pinch, and lets the user know that drag is on. It will 
 
 If you use or reference this project in academic or research work, please cite it as:
 
-Baig, H. (2025). AeroDesk: Real-Time Hand Gesture Recognition for Desktop Interaction. GitHub Repository.
+Baig, H. (2025). AeroDesk: Real-Time Hand Gesture Recognition for Desktop Interaction.
 https://github.com/HaiderB120/Hand-Gesture-Recognition
 
 
 
   
+
 
 
 
