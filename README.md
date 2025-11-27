@@ -19,6 +19,7 @@ This project includes:
 
 
 **Gesture Training**
+
 I built a web application called AeroDesk that can allow users to be able to train the model to remember a custom gesture, and then they are able to map that gesture to different computer actions.
 
 <img width="1919" height="965" alt="image" src="https://github.com/user-attachments/assets/e590fb41-bf82-41b6-9eba-533967c6c894" />
@@ -86,8 +87,15 @@ I also included a pinch and drag event in my model, which is included by default
 This gesture detects the pinch, and lets the user know that drag is on. It will disengage as soon as the user breaks the pinch.
 
 
+If you use or reference this project in academic or research work, please cite it as:
+
+Baig, H. (2025). AeroDesk: Real-Time Hand Gesture Recognition for Desktop Interaction. GitHub Repository.
+https://github.com/HaiderB120/Hand-Gesture-Recognition
+
+
 
   
+
 
 
 
