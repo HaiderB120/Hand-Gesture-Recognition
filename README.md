@@ -15,7 +15,9 @@ This project includes:
 
 - Pinch-and-drag cursor control
 
-  
+
+
+
 **Gesture Training**
 I built a web application called AeroDesk that can allow users to be able to train the model to remember a custom gesture, and then they are able to map that gesture to different computer actions.
 
@@ -77,5 +79,6 @@ This gesture detects the pinch, and lets the user know that drag is on. It will 
 
 
   
+
 
 
