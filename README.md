@@ -86,6 +86,7 @@ I also included a pinch and drag event in my model, which is included by default
 
 This gesture detects the pinch, and lets the user know that drag is on. It will disengage as soon as the user breaks the pinch.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 If you use or reference this project in academic or research work, please cite it as:
 
@@ -95,6 +96,7 @@ https://github.com/HaiderB120/Hand-Gesture-Recognition
 
 
   
+
 
 
 
